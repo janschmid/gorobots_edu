@@ -7,7 +7,7 @@
 #include "ann_xnor.h"
 #include <string.h>
 #include <stdio.h>
-#define BPM_ITER	200000 
+#define BPM_ITER	5000 
 ///////////////////////////////////////////
 
 ANN_XNOR* callann;
@@ -35,12 +35,12 @@ int main (int argc, char **argv)
 
 
     //XNOR function testing set //
-    /*
-callann->Run(0,0);
-callann->Run(0,1);
-callann->Run(1,0);
-callann->Run(1,1);
-     */
+    
+    // callann->Run(0,0);
+    // callann->Run(0,1);
+    // callann->Run(1,0);
+    // callann->Run(1,1);
+
 
   }
 

@@ -90,6 +90,8 @@ class EmptyController : public AbstractController {
 
 
     //XXXXXXXXXX
+    double deltaW;
+    double reflexive_signal_old=0;
     //XXXXXXXXXX
 
 
@@ -115,6 +117,9 @@ class EmptyController : public AbstractController {
       u_ico_in.resize(2);
 
       //XXXXXXXXXX
+      w_ico={0.0,1.0};
+      u_ico_in={0.0,1.0};
+
       //XXXXXXXXXX
 
        exp_output = 0.0;
@@ -428,23 +433,25 @@ class EmptyController : public AbstractController {
 
       //----ICO learning-------//
 
-      u_ico_in.at(0) = 0; // Green//0; // Green
+      u_ico_in.at(0) = 0.8; // Green//0; // Green
       //u_ico_in.at(1) = 0;// Blue//0;// Blue
 
 
       //Weights of ICO learning modify these by implementing ICO learning rule!!
 
-      w_ico.at(0) += 0; //Green
       //w_ico.at(1) += 0; //Blue
 
+      deltaW = u_ico_in.at(0)*predictive_signal_green*(reflexive_signal_green-reflexive_signal_old);
+      w_ico.at(0) += deltaW; //Green
 
+      reflexive_signal_old = reflexive_signal_green;
 
-      printf("w_ico[0] = %f \n",  w_ico.at(0));
+      printf("w_ico[0] = %f     diff: %f\n",  w_ico.at(0), predictive_signal_green);
 
 
       //OUTPUT
       // Output to steer the robot at the moment, the robot is controlled by noise (as exploration or searching for an object)
-      u_ico_out = 1.0*u_ico_in.at(0)+exp_output;
+      u_ico_out = w_ico.at(0)*reflexive_signal_green+w_ico.at(1)*predictive_signal_green+exp_output;
       //u_ico_out = 1.0*u_ico_in.at(0)+1.0*u_ico_in.at(1)+exp_output;
 
       outFileicolearning<<w_ico.at(0)<<' '<<predictive_signal_green<<' '<<reflexive_signal_green<<' '

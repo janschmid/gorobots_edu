@@ -36,12 +36,10 @@
 
 #include "emptycontroller_icolearning.h"
 
-//#include "emptycontroller.h"
+// #include "emptycontroller.h"
 
 // OR an example controller
-//#include "samplecontroller.h"
-
-
+// #include "samplecontroller.h"
 // fetch all the stuff of lpzrobots into scope
 using namespace lpzrobots;
 
